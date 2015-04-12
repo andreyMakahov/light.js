@@ -12,6 +12,21 @@ Min-framework-js contains the necessary functionality to work with a DOM tree.
   * $.gQ      - search by QuerySeletor
   * $.gQA     - search by QuerySelectorAll
 
+Min-framework-js has a routing.
+Example routing configuration shown below.
+
+*  $.router
+*     .when('#todo', {
+*     controller:'TodoCtrl'
+*  })
+*     .when('#test', {
+*     controller:'TestCtrl'
+*  })
+*     .otherwise({
+*     redirectTo:'#todo'
+*  })
+*  .run();
+
 In framework integrated publicher/observer design pattern.
 Syntax for make object as pubisher need to call function
 
