@@ -104,10 +104,27 @@ window.$.router = (function(){
             return url === location.hash;
         },
         when: function(url, params){
-            
+            var getArguments = function(url){
+                var urlArray = [], argumentsObject = {};
+                // отрезаем хеш
+                url = url.indexOf('#') === 0 ? url.substr(1) : url;
+                urlArray = url.split('/');
+                urlArray.forEach(function(i, index){
+                    if(i[0] === ':'){
+                        argumentsObject[index] = i.substr(1);
+                    }
+                });
+                return argumentsObject;
+            };
+
             // сохраняем в map для использования при изменении ссылки
             this.map[url] = {};
             this.map[url].controller = params.controller;
+            this.map[url].action     = params.action || '$index';
+
+            params.arguments = getArguments(url);
+
+            this.map[url].arguments  = params.arguments;
 
             if(this.isCurrentUrl(url)){
                 this.current = url;   
