@@ -1,5 +1,5 @@
 {
-  "name": "min.js",
+  "name": "min-framework.js",
   "version": "0.0.1",
   "description": "minimalistic javascript framework",
   "main": "min.js",
@@ -13,7 +13,7 @@
     "dron"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/andreyMakahov/min.js",
+  "homepage": "https://github.com/andreyMakahov/min-framework.js",
   "ignore": [
     "**/.*",
     "node_modules",
