@@ -1,0 +1,24 @@
+{
+  "name": "min.js",
+  "version": "0.0.1",
+  "description": "minimalistic javascript framework",
+  "main": "min.js",
+  "keywords": [
+    "javascript",
+    "framework",
+    "minimalistic",
+    "web"
+  ],
+  "authors": [
+    "dron"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/andreyMakahov/min.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
