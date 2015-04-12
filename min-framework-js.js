@@ -1,23 +1,23 @@
 window.$ = {};
 window.$.gId = function(id, parent){
-	parent = parent || document;
-	return parent.getElementById(id);
+    parent = parent || document;
+    return parent.getElementById(id);
 };
 window.$.gClass = function(className, parent){
-	parent = parent || document;
-	return document.getElementsByClassName(className);
+    parent = parent || document;
+    return document.getElementsByClassName(className);
 };
 window.$.gTag = function(tag, parent){
-	parent = parent || document;
-	return parent.getElementsByTagName(tag);
+    parent = parent || document;
+    return parent.getElementsByTagName(tag);
 };
 window.$.gQ = function(selector, parent){
-	parent = parent || document;
-	return document.querySelector(selector);
+    parent = parent || document;
+    return document.querySelector(selector);
 };
 window.$.gQA = function(selector, parent){
-	parent = parent || document;
-	return document.querySelectorAll(selector);
+    parent = parent || document;
+    return document.querySelectorAll(selector);
 };
 window.$.ajax = function(){
     var xmlhttp;
@@ -100,27 +100,6 @@ window.$.router = (function(){
     var isCurrentUrl = function(url){
         return url === location.hash;
     };
-    var getRoutePath = function(url){
-        var urlArray = [], mapItemArray = [];
-        var isParam = function(param){
-            return param[0] === ':';
-        };
-        urlArray = url.split('/');
-        for(var i in this.map){
-            mapItemArray = i.split('/');
-            if(urlArray.length === mapItemArray.length) continue;
-            for(var j=0; j<mapItemArray.length; j++){
-                if(isParam(mapItemArray[j]){
-                    if(j === mapItemArray.length) return i;
-                } else {
-                    if(mapItemArray[j] === urlArray[j]){
-                        if(j === mapItemArray.length) return i;
-                    } else break;
-                }
-            }
-        }
-        return false;
-    };
     var router = {
         map: {},
         current: null,
@@ -131,7 +110,8 @@ window.$.router = (function(){
                 urlArray = url.split('/');
                 urlArray.forEach(function(i, index){
                     if(i[0] === ':'){
-                        argumentsObject[index] = i.substr(1);
+                        argumentsObject[i.substr(1)] = {};
+                        argumentsObject[i.substr(1)].index = index;
                     }
                 });
                 return argumentsObject;
@@ -154,22 +134,60 @@ window.$.router = (function(){
         },
         change: function(url){
 
-            // нет контроллера в параметрах
-            if( ! this.map[url] || ! this.map[url].controller){
-                throw new Error('Unknown controller');
+            var currentPath = this.getRoutePath(url),
+                controller, action,
+                self = this;
+
+            this.current = currentPath;
+
+            if( ! currentPath){
+                if(this.default){
+                    this.change(this.default);   
+                } else{
+                    throw new Error('No default route');
+                }    
             }
 
-            // не соответствует текущему хешу - ничего не делаем
-            if( ! isCurrentUrl(url)) return this;
             window.history.pushState(null, null, url);
+            controller = this.map[currentPath].controller;
+            action     = this.map[currentPath].action || '$index';
+            arguments  = (function(){
+                var argv = {},
+                    hash = location.hash.split('/'),
+                    arguments = self.map[currentPath].arguments;
+                for(var i in arguments){
+                    argv[i] = hash[arguments[i].index];
+                }
+                return argv;
+            })();
 
             // специальная функции в контроллере, которая отрисовывает вид
-            window[this.map[url].controller]['$index']();
-
+            window[controller][action](arguments);
             return this;
         },
+        getRoutePath: function(url){
+            var urlArray = [], mapItemArray = [];
+            var isParam = function(param){
+                return param[0] === ':';
+            };
+            urlArray = url.split('/');
+            for(var i in this.map){
+                mapItemArray = i.split('/');
+                if(urlArray.length !== mapItemArray.length) continue;
+                for(var j=0; j<mapItemArray.length; j++){
+                    if(isParam(mapItemArray[j])){
+                        if((j+1) === mapItemArray.length) return i;
+                    } else {
+                        if(mapItemArray[j] === urlArray[j]){
+                            if((j+1) === mapItemArray.length) return i;
+                        } else break;
+                    }
+                }
+            }
+            return false;
+        },
         run: function(){
-            var currentRoute = getRoutePath(location.hash);
+            var currentRoute = this.getRoutePath(location.hash);
             if(currentRoute !== false){
                 this.change(currentRoute);
             }else{
