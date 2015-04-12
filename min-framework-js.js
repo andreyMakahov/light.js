@@ -220,13 +220,13 @@ window.$.http = (function(){
         }
     }
     var http = {
-        get: function(url, onsucess, onerror){
+        get: function(url, onsuccess, onerror){
             var xhr = $.ajax();
             xhr.open('GET', url, true);
             xhr.onload = function (e) {
                 if (this.status === 200) {
                     results = JSON.parse(this.responseText);
-                    onsucess(results);
+                    onsuccess(results);
                 }
             };
             xhr.onerror = function (e) {
@@ -234,14 +234,14 @@ window.$.http = (function(){
             };
             xhr.send(null);
         },
-        post:function(url, data, headers, onsucess, onerror){
+        post:function(url, data, headers, onsuccess, onerror){
             var xhr = $.ajax();
             xhr.open('POST', url, true);
             parseHeaders(xhr, headers);
             xhr.onload = function (e) {
                 if (this.status === 200) {
                     results = JSON.parse(this.responseText);
-                    onsucess(results);
+                    onsuccess(results);
                 }
             };
             xhr.onerror = function (e) {
@@ -249,14 +249,14 @@ window.$.http = (function(){
             };
             xhr.send(data);
         },
-        delete: function(url, data, headers, onsucess, onerror){
+        delete: function(url, data, headers, onsuccess, onerror){
             var xhr = $.ajax();
             xhr.open('DELETE', url, true);
             parseHeaders(xhr, headers);
             xhr.onload = function (e) {
                 if (this.status === 200) {
                     results = JSON.parse(this.responseText);
-                    onsucess(results);
+                    onsuccess(results);
                 }
             };
             xhr.onerror = function (e) {
