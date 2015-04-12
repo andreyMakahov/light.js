@@ -17,7 +17,12 @@ Example routing configuration shown below.
 
 *  $.router
 *     .when('#todo', {
-*     controller:'TodoCtrl'
+*     controller:'TodoCtrl',
+*     action: '$index'
+*  })
+*     .when('#todo/:id', {
+*     controller:'TodoCtrl',
+*     action: 'todoItem'
 *  })
 *     .when('#test', {
 *     controller:'TestCtrl'
