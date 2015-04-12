@@ -102,7 +102,7 @@ window.$.router = (function(){
     };
     var getRoutePath = function(url){
         var urlArray = [], mapItemArray = [];
-        var isParam: function(param){
+        var isParam = function(param){
             return param[0] === ':';
         };
         urlArray = url.split('/');
