@@ -97,14 +97,14 @@ window.$.publisher = function(object){
 
 
 window.$.router = (function(){
-    var isCurrentUrl: function(url){
+    var isCurrentUrl = function(url){
         return url === location.hash;
     };
-    var getRoutePath: function(url){
+    var getRoutePath = function(url){
         var urlArray = [], mapItemArray = [];
         var isParam: function(param){
             return param[0] === ':';
-        }
+        };
         urlArray = url.split('/');
         for(var i in this.map){
             mapItemArray = i.split('/');
