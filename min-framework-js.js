@@ -97,17 +97,37 @@ window.$.publisher = function(object){
 
 
 window.$.router = (function(){
+    var isCurrentUrl: function(url){
+        return url === location.hash;
+    };
+    var getRoutePath: function(url){
+        var urlArray = [], mapItemArray = [];
+        var isParam: function(param){
+            return param[0] === ':';
+        }
+        urlArray = url.split('/');
+        for(var i in this.map){
+            mapItemArray = i.split('/');
+            if(urlArray.length === mapItemArray.length) continue;
+            for(var j=0; j<mapItemArray.length; j++){
+                if(isParam(mapItemArray[j]){
+                    if(j === mapItemArray.length) return i;
+                } else {
+                    if(mapItemArray[j] === urlArray[j]){
+                        if(j === mapItemArray.length) return i;
+                    } else break;
+                }
+            }
+        }
+        return false;
+    };
     var router = {
         map: {},
         current: null,
-        isCurrentUrl: function(url){
-            return url === location.hash;
-        },
+        default: null,
         when: function(url, params){
             var getArguments = function(url){
                 var urlArray = [], argumentsObject = {};
-                // отрезаем хеш
-                url = url.indexOf('#') === 0 ? url.substr(1) : url;
                 urlArray = url.split('/');
                 urlArray.forEach(function(i, index){
                     if(i[0] === ':'){
@@ -126,28 +146,21 @@ window.$.router = (function(){
 
             this.map[url].arguments  = params.arguments;
 
-            if(this.isCurrentUrl(url)){
-                this.current = url;   
-            }
             return this;
         },
         otherwise: function(params){
-            if( ! this.current){
-                this.current = params.redirectTo;
-                window.history.pushState(null, null, params.redirectTo);    
-            }
-
+            this.default = params.redirectTo;
             return this;
         },
         change: function(url){
-            
+
             // нет контроллера в параметрах
             if( ! this.map[url] || ! this.map[url].controller){
                 throw new Error('Unknown controller');
             }
 
             // не соответствует текущему хешу - ничего не делаем
-            if( ! this.isCurrentUrl(url)) return this;
+            if( ! isCurrentUrl(url)) return this;
             window.history.pushState(null, null, url);
 
             // специальная функции в контроллере, которая отрисовывает вид
@@ -156,8 +169,15 @@ window.$.router = (function(){
             return this;
         },
         run: function(){
-            if(this.current){
-                this.change(this.current);   
+            var currentRoute = getRoutePath(location.hash);
+            if(currentRoute !== false){
+                this.change(currentRoute);
+            }else{
+                if(this.default){
+                    this.change(this.default);   
+                } else{
+                    throw new Error('No default route');
+                }    
             }
             return this;
         }
