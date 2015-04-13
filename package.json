@@ -1,0 +1,28 @@
+{
+  "name": "min",
+  "version": "1.0.0",
+  "description": "Min-framework-js is a minimalistic javascript framework for building RESTFull web applications.",
+  "main": "min-framework-js.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andreyMakahov/min-framework-js.js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andreyMakahov/min-framework-js.js/issues"
+  },
+  "homepage": "https://github.com/andreyMakahov/min-framework-js.js",
+  "devDependencies": {
+    "jasmine-core": "^2.2.0",
+    "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-cli": "0.0.4",
+    "karma-jasmine": "^0.3.5",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "phantomjs": "^1.9.16"
+  }
+}
