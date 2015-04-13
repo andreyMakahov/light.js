@@ -267,3 +267,17 @@ window.$.http = (function(){
     };
     return http;
 })();
+
+window.$.promise = function(callback){
+    var queue = [];
+    var _next = function(){
+        var cb = queue.shift();
+        if(cb) cb(_next);
+    }
+    setTimeout(_next, 0);
+    var then = function(cb){
+        queue.push(cb);
+        return { then: then };
+    }
+    return then(callback);
+};
