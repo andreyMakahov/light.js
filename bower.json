@@ -1,9 +1,10 @@
 {
-  "name": "min-framework-js.js",
+  "name": "light.js",
   "version": "0.0.1",
   "description": "minimalistic javascript framework",
-  "main": "min-framework-js.js",
+  "main": "light.js",
   "keywords": [
+    "light",
     "javascript",
     "framework",
     "minimalistic",
@@ -13,7 +14,7 @@
     "dron"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/andreyMakahov/min-framework-js.js",
+  "homepage": "https://github.com/andreyMakahov/light.js",
   "ignore": [
     "**/.*",
     "node_modules",
