@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'min-framework-js.js',
+      'light.js',
       'Tests/**/*.js'
     ],
 
