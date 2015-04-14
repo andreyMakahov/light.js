@@ -1,10 +1,10 @@
-# Min-framework-js.js
+# Light.js
 
-Min-framework-js is a minimalistic javascript framework for building RESTFull web applications.
+Light.js is a minimalistic javascript framework for building RESTFull web applications.
 
 ##Documentation
 
-Min-framework-js contains the necessary functionality to work with a DOM tree.
+Light.js contains the necessary functionality to work with a DOM tree.
 
   * $.gId     - search by id
   * $.gClass  - search by ClassName
@@ -12,7 +12,7 @@ Min-framework-js contains the necessary functionality to work with a DOM tree.
   * $.gQ      - search by QuerySeletor
   * $.gQA     - search by QuerySelectorAll
 
-Min-framework-js has a routing.
+Light.js has a routing.
 Example routing configuration shown below.
 
 *  $.router
