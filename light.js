@@ -139,7 +139,7 @@ window.$.router = (function(){
 
             if( ! currentPath){
                 if(this.default){
-                    this.change(this.default);   
+                    return this.change(this.default);   
                 } else{
                     throw new Error('No default route');
                 }    
